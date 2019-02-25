@@ -2,5 +2,4 @@
 sentry-auth-google==0.2.0
 
 # sentry-auth-github does not have releases, so we pin the version
-# todo need to open git port for this to work
-# -e git://github.com/getsentry/sentry-auth-github.git@43f6b270b3fac32326518a78be77562ebe5abacf#egg=sentry-auth-github
+-e git://github.com/getsentry/sentry-auth-github.git@43f6b270b3fac32326518a78be77562ebe5abacf#egg=sentry-auth-github
