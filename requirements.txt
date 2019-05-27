@@ -1,5 +1,14 @@
 # Add plugins here
-sentry-auth-google==0.2.0
 
+# Officially supported plugins
+# https://docs.sentry.io/server/sso/#installing-a-provider
+# https://github.com/getsentry/sentry-auth-google
+sentry-auth-google==0.2.0
 # sentry-auth-github does not have releases, so we pin the version
 -e git://github.com/getsentry/sentry-auth-github.git@43f6b270b3fac32326518a78be77562ebe5abacf#egg=sentry-auth-github
+
+# Unofficial openid connect plugin
+# https://github.com/siemens/sentry-auth-oidc
+# Useing a commit from master while waiting for a release of the sentry9.1 fix
+# sentry-auth-oidc==2.0.0
+-e git://github.com/govau/sentry-auth-oidc.git@f000f7d1e177619495f2c01099ce34c9ead020e6#egg=sentry-auth-oidc
