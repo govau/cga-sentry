@@ -1,6 +1,9 @@
 # Add plugins here
 
-# Officially supported plugin
+# Officially supported plugins
+# https://docs.sentry.io/server/sso/#installing-a-provider
+# https://github.com/getsentry/sentry-auth-google
+sentry-auth-google==0.2.0
 # sentry-auth-github does not have releases, so we pin the version
 -e git://github.com/getsentry/sentry-auth-github.git@43f6b270b3fac32326518a78be77562ebe5abacf#egg=sentry-auth-github
 
