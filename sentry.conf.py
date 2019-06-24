@@ -57,8 +57,7 @@ import six
 
 CONF_ROOT = os.path.dirname(__file__)
 
-postgres = env('SENTRY_POSTGRES_HOST') or (
-    env('POSTGRES_PORT_5432_TCP_ADDR') and 'postgres')
+postgres = env('SENTRY_POSTGRES_HOST') or (env('POSTGRES_PORT_5432_TCP_ADDR') and 'postgres')
 if postgres:
     DATABASES = {
         'default': {
@@ -111,11 +110,9 @@ SENTRY_SINGLE_ORGANIZATION = env('SENTRY_SINGLE_ORGANIZATION', True)
 # Generic Redis configuration used as defaults for various things including:
 # Buffers, Quotas, TSDB
 
-redis = env('SENTRY_REDIS_HOST') or (
-    env('REDIS_PORT_6379_TCP_ADDR') and 'redis')
+redis = env('SENTRY_REDIS_HOST') or (env('REDIS_PORT_6379_TCP_ADDR') and 'redis')
 if not redis:
-    raise Exception(
-        'Error: REDIS_PORT_6379_TCP_ADDR (or SENTRY_REDIS_HOST) is undefined, did you forget to `--link` a redis container?')
+    raise Exception('Error: REDIS_PORT_6379_TCP_ADDR (or SENTRY_REDIS_HOST) is undefined, did you forget to `--link` a redis container?')
 
 redis_password = env('SENTRY_REDIS_PASSWORD') or ''
 redis_port = env('SENTRY_REDIS_PORT') or '6379'
@@ -143,8 +140,7 @@ SENTRY_OPTIONS.update({
 # Sentry currently utilizes two separate mechanisms. While CACHES is not a
 # requirement, it will optimize several high throughput patterns.
 
-memcached = env('SENTRY_MEMCACHED_HOST') or (
-    env('MEMCACHED_PORT_11211_TCP_ADDR') and 'memcached')
+memcached = env('SENTRY_MEMCACHED_HOST') or (env('MEMCACHED_PORT_11211_TCP_ADDR') and 'memcached')
 if memcached:
     memcached_port = (
         env('SENTRY_MEMCACHED_PORT')
@@ -169,8 +165,7 @@ SENTRY_CACHE = 'sentry.cache.redis.RedisCache'
 # information on configuring your queue broker and workers. Sentry relies
 # on a Python framework called Celery to manage queues.
 
-rabbitmq = env('SENTRY_RABBITMQ_HOST') or (
-    env('RABBITMQ_PORT_5672_TCP_ADDR') and 'rabbitmq')
+rabbitmq = env('SENTRY_RABBITMQ_HOST') or (env('RABBITMQ_PORT_5672_TCP_ADDR') and 'rabbitmq')
 
 if rabbitmq:
     BROKER_URL = (
@@ -189,8 +184,7 @@ if rabbitmq:
         )
     )
 else:
-    BROKER_URL = 'redis://:' + redis_password + '@' + \
-        redis + ':' + redis_port + '/' + redis_db
+    BROKER_URL = 'redis://:' + redis_password + '@' + redis + ':' + redis_port + '/' + redis_db
 
 
 ###############
@@ -271,6 +265,7 @@ SENTRY_WEB_OPTIONS = {
 }
 
 
+
 ##########
 # Docker #
 ##########
@@ -331,14 +326,12 @@ def bind_env_config(config=SENTRY_OPTIONS, mapping=ENV_CONFIG_MAPPING):
             opt_key, type_ = item, None
         config[opt_key] = env(env_var, type=type_)
 
-
 # If this value ever becomes compromised, it's important to regenerate your
 # SENTRY_SECRET_KEY. Changing this value will result in all current sessions
 # being invalidated.
 secret_key = env('SENTRY_SECRET_KEY')
 if not secret_key:
-    raise Exception(
-        'Error: SENTRY_SECRET_KEY is undefined, run `generate-secret-key` and set to -e SENTRY_SECRET_KEY')
+    raise Exception('Error: SENTRY_SECRET_KEY is undefined, run `generate-secret-key` and set to -e SENTRY_SECRET_KEY')
 
 if 'SENTRY_RUNNING_UWSGI' not in os.environ and len(secret_key) < 32:
     print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
